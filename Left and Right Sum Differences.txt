@@ -1,0 +1,37 @@
+class Solution {
+    public int[] leftRigthDifference(int[] nums) {
+        int suml=0,sumr=0,k=0,d=nums.length-1;
+        int[] newArr=new int[nums.length];
+        int[] newArr2=new int[nums.length];
+   for(int i=0;i<nums.length;i++){
+       if((i-1 )<0){
+           newArr[k]=0;
+           k++;
+           continue;
+       }
+        suml=suml+nums[i-1];
+       newArr[k]=suml;
+       k++;
+   }
+        
+        
+        for(int i=nums.length-1;i>=0;i--){
+            if(i+1>nums.length-1){
+                newArr2[d]=0;
+                d--;
+                continue;
+            }
+            sumr=sumr+nums[i+1];
+            newArr2[d]=sumr;
+            d--;
+            
+            
+        }
+        
+        for(int i=0;i<nums.length;i++)
+        {
+            nums[i]=Math.abs(newArr[i]-newArr2[i]);
+        }
+        return nums;
+}
+}

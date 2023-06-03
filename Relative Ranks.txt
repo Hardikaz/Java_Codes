@@ -1,0 +1,74 @@
+class Solution {
+    public String[] findRelativeRanks(int[] score) {
+      
+      HashMap<Integer,String> amap=new HashMap<>();
+        //int[] arr=new int[score.length];
+        //System.arraycopy(score,0,arr,0,score.length);
+         int[] arr = Arrays.copyOf(score, score.length);
+        Arrays.sort(arr);
+        String[] a=new String[arr.length];
+        int rank=4;
+        if(arr.length==1)
+        {
+            a[0]="Gold Medal";
+            return a;
+        }
+        else if(arr.length==2)
+        {
+            a[1]="Gold Medal";
+            a[0]="Silver Medal";
+            return a;
+        }
+    
+            amap.put(arr[arr.length-1],"Gold Medal");
+            amap.put(arr[arr.length-2],"Silver Medal");
+            amap.put(arr[arr.length-3],"Bronze Medal");
+        for(int i=arr.length-4;i>=0;i--)
+        {
+            if(!amap.containsKey(i))
+            {
+                amap.put(arr[i],String.valueOf(rank++));
+            }
+        }
+        for(int i=0;i<arr.length;i++)
+        {
+            a[i]=amap.get(score[i]);
+        }
+        return a;
+    }
+}
+
+// class Solution {
+//     public String[] findRelativeRanks(int[] arr) {
+//         HashMap<Integer, String> map = new HashMap<>();
+//         int rank = 4;
+//         int[] a = Arrays.copyOf(arr, arr.length);
+//         String[] array = new String[a.length];
+//         Arrays.sort(a);
+
+//         if(a.length == 1) {
+//             array[0] = "Gold Medal";
+//             return array;
+//         }
+
+//         if(a.length == 2){
+//             array[1] = "Gold Medal";
+//             array[0] = "Silver Medal";
+//             return array;
+//         }
+
+//         map.put(a[a.length - 1], "Gold Medal");
+//         map.put(a[a.length - 2], "Silver Medal");
+//         map.put(a[a.length - 3], "Bronze Medal");
+
+//         for (int i = a.length - 4; i >= 0; i--) {
+//             if (!map.containsKey(i)) map.put(a[i], String.valueOf(rank++));
+//         }
+
+
+//         for (int i = 0; i < arr.length; i++) {
+//             array[i] = map.get(arr[i]);
+//         }
+//         return array;
+//     }
+// }

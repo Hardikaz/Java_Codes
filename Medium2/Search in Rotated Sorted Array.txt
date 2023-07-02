@@ -1,0 +1,59 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        int i=0;
+        //finding pivot point
+        while(i<nums.length-2 && nums[i]<=nums[i+1])
+        {
+            i++;
+        }
+       
+        
+        if(nums[i]==target)
+        {
+            return i;
+        }
+        
+        if(target==nums[0]) return 0;
+        
+        if(target==nums[nums.length-1]) return nums.length-1;
+        
+        if(i==nums.length-2)
+        {
+            return binarySearch(nums,0,nums.length-1,target);
+        }
+        
+        if(target>nums[nums.length-1]) return binarySearch(nums,0,i,target);
+        
+        if(target<nums[0]) return binarySearch(nums,i+1,nums.length-1,target);
+        
+        return -1;
+    }
+        
+        public int binarySearch(int[] nums,int low,int high,int target)
+        {
+            while(low<high)
+            {
+                int mid=(high+low)/2;
+                if(nums[low]==target) return low;
+                
+                if(nums[high]==target) return high;
+                
+                if(nums[mid]==target) return mid;
+                
+                if(nums[mid]>target) 
+                {
+                    high=mid-1;
+                    
+                }
+                if(nums[mid]<target)
+                {
+                    low=mid+1;
+                }
+                
+            }
+             
+            
+            return -1;
+        }
+       
+    }

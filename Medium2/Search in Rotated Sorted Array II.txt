@@ -1,0 +1,47 @@
+class Solution {
+    public boolean search(int[] nums, int target) {
+        
+        int i=0;
+        //Finding pivot point and will skip the repeating point
+        
+        while(i<nums.length-2 && nums[i]<=nums[i+1]) i++;
+        
+       if(nums[i]==target) return true;
+        
+        if(nums[0]==target) return true;
+        
+        if(nums[nums.length-1]==target) return true;
+        
+        if(i==nums.length-2) return binarySearch(nums,0,nums.length-1,target);
+        
+        if(target<nums[0]) return binarySearch(nums,i+1,nums.length-1,target);
+        
+        if(target>nums[nums.length-1]) return binarySearch(nums,0,i,target);
+        
+        return false;
+        
+    }
+    
+    public boolean binarySearch(int[] nums,int low,int high,int target)
+    {
+        while(low<high)
+        {
+            int mid=(high+low)/2;
+            
+            if(target==nums[low]) return true;
+            
+            if(target==nums[high]) return true;
+            
+            if(target==nums[mid]) return true;
+            
+            if(target>nums[mid]) low=mid+1;
+            
+            if(target<nums[mid]) high=mid-1;
+        }
+        
+        return false;
+    }
+        
+        
+        
+    }

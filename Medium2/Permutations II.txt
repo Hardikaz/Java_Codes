@@ -1,0 +1,31 @@
+class Solution {
+    
+    public void findPermutations(int[] nums,int[] arr,HashSet<List<Integer>> set, List<Integer> ds)
+    {
+        if(ds.size()==nums.length)
+        {
+            set.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i=0;i<nums.length;i++)
+        {
+            if(arr[i]==0)
+            {
+                arr[i]=1;
+                ds.add(nums[i]);
+                findPermutations(nums,arr,set,ds);
+                ds.remove(ds.size()-1);
+                arr[i]=0;
+            }
+        }
+    }
+    
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ans=new ArrayList<>();
+        HashSet<List<Integer>> set=new HashSet<>();
+        int[] arr=new int[nums.length];
+        findPermutations(nums,arr,set,new ArrayList<>());
+        ans.addAll(set);
+        return ans;
+    }
+}

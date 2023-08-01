@@ -1,0 +1,68 @@
+class Cords{
+    int left;
+    int right;
+    
+    public Cords(int left,int right)
+    {
+        this.left=left;
+        this.right=right;
+    }
+}
+class Solution {
+   
+    // Function to find the number of islands.
+    public void bfs(int r,int c,int[][] vis, char[][] grid)
+    {
+        vis[r][c]=1;
+        Queue<Cords> q=new LinkedList<Cords>();
+        q.add(new Cords(r,c));
+        
+        int n=grid.length;
+        int m=grid[0].length;
+        
+        while(!q.isEmpty())
+        {
+            int row=q.peek().left;
+            int col=q.peek().right;
+            q.remove(); 
+            
+            for(int drow=-1;drow<=1;drow++)
+            {
+                for(int dcol=-1;dcol<=1;dcol++)
+                {
+                    int frow=row+drow;
+                    int fcol=col+dcol;
+                    
+                    if(frow>=0 && frow<n && fcol>=0 && fcol<m && vis[frow][fcol]==0 && grid[frow][fcol]=='1')
+                    {
+                        vis[frow][fcol]=1;
+                        q.add(new Cords(frow,fcol));
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    public int numIslands(char[][] grid) {
+        // Code here
+        
+        int n=grid.length;
+        int m=grid[0].length;
+        int[][] vis=new int[n][m];
+        int sp=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(vis[i][j]==0 && grid[i][j]=='1')
+                {
+                    sp++;
+                    bfs(i,j,vis,grid);
+                }
+            }
+        }
+        return sp;
+    }
+}

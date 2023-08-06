@@ -1,0 +1,61 @@
+class Solution {
+    
+    public static void findPath(int[][] m,ArrayList<String> ans,String path,int i,int j,int[][] vis)
+    {
+        if(i==m.length-1 && j==m.length-1)
+        {
+            ans.add(path);
+            return;
+        }
+       
+               
+                    if(i+1<m.length && m[i+1][j]==1 && vis[i+1][j]==0)
+                    {
+                        vis[i][j]=1;
+                    
+                    findPath(m,ans,path+'D',i+1,j,vis);
+                    vis[i][j]=0;
+                    }
+                    
+                      if(j-1>=0 && m[i][j-1]==1 && vis[i][j-1]==0)
+                    {
+                        vis[i][j]=1;
+                       
+                        findPath(m,ans,path+'L',i,j-1,vis);
+                        vis[i][j]=0;
+                    }
+                    
+                     if(j+1<m.length && m[i][j+1]==1 && vis[i][j+1]==0)
+                    {
+                        vis[i][j]=1;
+                        
+                        findPath(m,ans,path+'R',i,j+1,vis);
+                        vis[i][j]=0;
+                    }
+                    if(i-1>=0 && m[i-1][j]==1 && vis[i-1][j]==0)
+                    {
+                        vis[i][j]=1;
+                        
+                        findPath(m,ans,path+'U',i-1,j,vis);
+                        vis[i][j]=0;
+                    }
+                    
+                   
+                    
+                  
+                
+            
+        
+    }
+    
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        // Your code here
+        ArrayList<String> ans=new ArrayList<>();
+        int[][] vis=new int[n][n];
+        String path="";
+        if(m[0][0]==1)
+        findPath(m,ans,path,0,0,vis);
+        
+        return ans;
+    }
+}

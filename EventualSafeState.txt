@@ -1,0 +1,48 @@
+//Graph dfs
+class Solution {
+    
+    public boolean dfs(int node,int[] vis,int[] path,int[] mark,List<List<Integer>> adj)
+    {
+        vis[node]=1;
+        path[node]=1;
+        mark[node]=0;
+        
+        for(int ele:adj.get(node))
+        {
+            if(vis[ele]==0)
+            {
+                if(dfs(ele,vis,path,mark,adj)==true) return true;
+                
+            }
+           
+            else if(path[ele]==1) return true;
+        }
+        
+        path[node]=0;
+        mark[node]=1;
+        return false;
+    }
+
+    List<Integer> eventualSafeNodes(int V, List<List<Integer>> adj) {
+
+        // Your code here
+        int[] vis=new int[V];
+        int[] path=new int[V];
+        int[] mark=new int[V];
+        
+        for(int i=0;i<V;i++)
+        {
+            if(vis[i]==0)
+            {
+                dfs(i,vis,path,mark,adj);
+            }
+        }
+        
+        List<Integer> sn=new ArrayList<>();
+        for(int i=0;i<V;i++)
+        {
+            if(mark[i]==1) sn.add(i);
+        }
+        return sn;
+    }
+}
